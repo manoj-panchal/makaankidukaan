@@ -1,0 +1,13 @@
+@import "bootstrap";
+// Core variables and mixins
+@import "main/variables.scss";
+@import "main/mixins.scss";
+// Global CSS
+@import "main/global.scss";
+// Components
+@import "main/masthead.scss";
+@import "main/showcase.scss";
+@import "main/icons.scss";
+@import "main/testimonials.scss";
+@import "main/call-to-action.scss";
+@import "main/footer.scss";
