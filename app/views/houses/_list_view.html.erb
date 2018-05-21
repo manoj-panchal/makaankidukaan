@@ -1,0 +1,35 @@
+<div class="table-responsive list_view">
+  <table class="table table-bordered all-user-table">
+    <thead>
+      <tr>
+        <th class="thead">Title</th>
+        <th class="thead">Price</th>
+        <th class="thead">Size</th>
+      </tr>
+    </thead>
+    <% if @houses.present? %>
+      <tbody>
+        <% @houses.each do |house| %>
+          <tr>
+            <td class="thead">
+              <%= link_to house.title, house_path(house.id) %>
+            </td>
+            <td class="thead">
+              <%= house.price %>
+            </td>
+            <td>
+              <%= house.size %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+      <%else%>
+      <tbody>
+        <tr >
+          <td colspan=3>No Property Found</td>
+        </tr>
+      </tbody>
+    <% end %>
+  </table>
+
+</div>

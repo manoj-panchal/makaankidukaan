@@ -1,69 +1,64 @@
-    <!-- Navigation -->
-    <nav class="navbar navbar-light bg-light static-top">
-      <div class="container">
-        <a class="navbar-brand" href="#">Start Bootstrap</a>
-        <a class="btn btn-primary" href="#">Sign In</a>
+<%= javascript_tag do%>
+ window.nearbys= <%=raw @houses.to_json %>;
+<%end%>
+<div class="container main-form">
+  <%= form_tag houses_path, :method => :get, class: "form-horizontal" do %>
+    <div class="form-group flt-left">
+      <%= label_tag "house_type", "Location", class: "" %>
+      <div class="">
+        <%= text_field_tag :search, params[:search], class: "form-control form-control-lg", placeholder: "Search by Location", id: "searchLocation" %>
+        <%= hidden_field_tag :lat, params[:lat],id: "latitude" %>
+         <%= hidden_field_tag :long, params[:long],id: "longitude" %>
       </div>
-    </nav>
+    </div>
+       
+    <div class="form-group flt-left">
+      <%= label_tag "house_type", "House Type", class: "" %>
+      <div>
+        <%= select_tag "filter[house_type]", options_for_select(House.house_types, params[:filter].present? ? params[:filter]['house_type'].to_i : ""), class: "form-control small-tx", :prompt=>"Select Bunglow Type" %>
+      </div>
+    </div>
+
+    <div class="form-group flt-left">
+      <%= label_tag "min_price", "Min Price", class: "" %>
+      <div>
+        <%= text_field_tag "filter[min_price]", params[:filter] && params[:filter]['min_price'], class: "form-control small-tx", placeholder: "Insert here..." %>
+      </div>
+    </div>
+    <div class="form-group flt-left">
+      <%= label_tag "max_price", "Max Price", class: "" %>
+      <div class="">
+        <%= text_field_tag "filter[max_price]", params[:filter] && params[:filter]['max_price'], class: "form-control small-tx", placeholder: "Insert here..." %>
+      </div>
+    </div>
+
+    <div class="form-group btn-top flt-left">
+      <%= submit_tag "Search", class: "btn btn-system" %>
+      <%= link_to "Reset", houses_path, class: "btn btn-default reset-btn" %>
+    </div>
+  <% end %>
+</div>
+
+<div class="clr"></div>
+<!-- form -->
+<div class="container views">
+  <button class='property_map_view'>Map View</button>
+  <button class='property_list_view'>List View</button>
+  
+  <!-- List View -->
+  <div id="list_view" class="hide">
+    <%= render partial: 'list_view' %>
+  </div>
+  <!-- End of List View -->
+  
+  <div id="map-container">
+    <% if @houses.present? %>
+      <div id="map-canvas"></div>
+    <% else %>
+      <p>No Property Found</p>
+    <% end %>
+  </div>
+</div>
 
 
-    <!-- Call to Action -->
-    <section class="call-to-action text-white text-center">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-            <div id="map-container">
-              <div id="map-canvas" width="700px" ></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer bg-light">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
-            <ul class="list-inline mb-2">
-              <li class="list-inline-item">
-                <a href="#">About</a>
-              </li>
-              <li class="list-inline-item">&sdot;</li>
-              <li class="list-inline-item">
-                <a href="#">Contact</a>
-              </li>
-              <li class="list-inline-item">&sdot;</li>
-              <li class="list-inline-item">
-                <a href="#">Terms of Use</a>
-              </li>
-              <li class="list-inline-item">&sdot;</li>
-              <li class="list-inline-item">
-                <a href="#">Privacy Policy</a>
-              </li>
-            </ul>
-            <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website 2018. All Rights Reserved.</p>
-          </div>
-          <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
-            <ul class="list-inline mb-0">
-              <li class="list-inline-item mr-3">
-                <a href="#">
-                  <i class="fa fa-facebook fa-2x fa-fw"></i>
-                </a>
-              </li>
-              <li class="list-inline-item mr-3">
-                <a href="#">
-                  <i class="fa fa-twitter fa-2x fa-fw"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fa fa-instagram fa-2x fa-fw"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </footer>
+  
